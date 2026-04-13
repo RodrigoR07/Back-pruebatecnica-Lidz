@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getClients } = require('../controllers/clientController');
+const { getClients, getClientById } = require('../controllers/clientController');
 
 router.get('/', getClients);
+router.get('/:id', getClientById);
 
 module.exports = router;
