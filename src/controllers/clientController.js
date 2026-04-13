@@ -38,4 +38,49 @@ const getClientById = async (req, res) => {
   }
 };
 
-module.exports = { getClients, getClientById };
+const createClient = async (req, res) => {
+  try {
+    const { name, rut ,salary, savings, messages = [], debts = [] } = req.body;
+
+    // El nuevo cliente es creado, con los parametros obtenidos del body de la URL
+    const client = await Client.create({ name, rut, salary, savings });
+
+    // Se crean todos los mensajes asociados al cliente, utilizando una sola consulta por medio de bulkCreate
+    if (messages.length > 0) {
+      const messagesWithClientId = messages.map(message => ({
+        ...message,
+        clientId: client.id,
+      }));
+      await Message.bulkCreate(messagesWithClientId);
+    }
+
+    // Se crean todas las deudas asociadas al cliente, utilizando una sola consulta por medio de bulkCreate
+    if (debts.length > 0) {
+      const debtsWithClientId = debts.map(debt => ({
+        ...debt,
+        clientId: client.id,
+      }));
+      await Debt.bulkCreate(debtsWithClientId);
+    }
+
+    // Se retorna el cliente recien creado con sus mensajes y deudas asociadas
+    const clientWithRelations = await Client.findByPk(client.id, {
+      include: [
+        {
+          model: Message,
+          attributes: ['id', 'text', 'sentAt', 'role'],
+        },
+        {
+          model: Debt,
+          attributes: ['id', 'amount', 'institution', 'dueDate'],
+        },
+      ],
+    });
+
+    res.status(201).json(clientWithRelations);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al crear el cliente', error: error.message });
+  }
+};
+
+module.exports = { getClients, getClientById, createClient };
