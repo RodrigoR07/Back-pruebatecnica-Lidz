@@ -6,10 +6,13 @@ require('./src/models/Client');
 require('./src/models/Message');
 require('./src/models/Debt');
 
+const clientRoutes = require('./src/routes/clientRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use('/clients', clientRoutes);
 
 sequelize.authenticate()
   .then(() => {
@@ -18,10 +21,6 @@ sequelize.authenticate()
   })
   .then(() => console.log('✅ Tablas sincronizadas'))
   .catch(err => console.error('❌ Error:', err));
-
-app.get('/', (req, res) => {
-  res.json({ message: 'API funcionando' });
-});
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
