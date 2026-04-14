@@ -139,7 +139,7 @@ backend/
 ---
 
 ## 🛣️ Rutas disponibles
-Para probar las rutas, es recomendable empezar probando la ruta POST /client, para partir creando Clientes y que con esto se vayan llenando las tablas, esto debido a que si partimos con GET /clients no devolvera ningun cliente pues las tablas se encuentran vacias debido a que la base de datos recien fue creada
+Para probar las rutas, es recomendable empezar probando la ruta POST /client, para comenzar creando Clientes y que con esto se vayan llenando las tablas, esto debido a que si partimos con GET /clients no devolvera ningun cliente pues las tablas se encuentran vacias debido a que la base de datos recien fue creada
 
 ### GET /clients
 Retorna un listado de todos los clientes.
