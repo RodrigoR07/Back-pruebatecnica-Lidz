@@ -40,10 +40,36 @@ const getClientById = async (req, res) => {
 
 const createClient = async (req, res) => {
   try {
-    const { name, rut ,salary, savings, messages = [], debts = [] } = req.body;
+    const { 
+            name, 
+            rut, 
+            salary,
+            savings,
+            credit_history_score,
+            purchaseMotivation,
+            propertyType,
+            preferredLocation,
+            propertySize,
+            urgencyLevel,
+            purchaseType,
+            messages = [], 
+            debts = [] 
+            } = req.body;
 
     // El nuevo cliente es creado, con los parametros obtenidos del body de la URL
-    const client = await Client.create({ name, rut, salary, savings });
+    const client = await Client.create({ 
+        name, 
+        rut,
+        salary,
+        savings,
+        credit_history_score,
+        purchaseMotivation,
+        propertyType,
+        preferredLocation,
+        propertySize,
+        urgencyLevel,
+        purchaseType,
+        });
 
     // Se crean todos los mensajes asociados al cliente, utilizando una sola consulta por medio de bulkCreate
     if (messages.length > 0) {

@@ -24,6 +24,34 @@ const Client = sequelize.define('Client', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  credit_history_score: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  purchaseMotivation: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  propertyType: {
+    type: DataTypes.ENUM('casa', 'departamento'),
+    allowNull: true,
+  },
+  preferredLocation: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  propertySize: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  urgencyLevel: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  purchaseType: {
+    type: DataTypes.ENUM('arriendo', 'compra_pie', 'compra_contado'),
+    allowNull: true,
+  },
 }, {
   tableName: 'clients',
   timestamps: false,

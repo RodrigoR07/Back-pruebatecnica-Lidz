@@ -7,12 +7,14 @@ require('./src/models/Message');
 require('./src/models/Debt');
 
 const clientRoutes = require('./src/routes/clientRoutes');
+const followUpRoutes = require('./src/routes/followUpRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/', clientRoutes);
+app.use('/client-to-do-follow-up', followUpRoutes);
 
 sequelize.authenticate()
   .then(() => {

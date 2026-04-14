@@ -9,7 +9,7 @@ const Message = sequelize.define('Message', {
     autoIncrement: true,
   },
   text: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   role: {
